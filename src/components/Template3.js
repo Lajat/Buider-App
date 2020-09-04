@@ -5,17 +5,51 @@ import Topbar from './topbar';
 import Footer from './footer';
 
 class Template3 extends React.Component {
-    state={}
+    state={
+        header: "Vegan Store Simple Template",
+        logo: "https://mobirise.com/extensions/organicamp/assets/images/logo1.jpg",
+        display: "none",
+        size:"40px"
+    }
+
+    onHeaderClicked = () => {
+        this.setState({display:"block"});
+    }
+
+    onChanged = (e) => {
+        if(e.target.value !== "")
+        this.setState({header: e.target.value});
+        else
+        this.setState({header: this.state.header})
+    }
+
+    onButtonClicked = (e) => {
+        e.preventDefault();
+        this.setState({display:"none"});
+    }
+
+    onLinkClicked = (data) => {
+        this.setState({logo:data});
+    }
+
+    onSizeClicked = (data) => {
+        this.setState({size:data});
+    }
+
+    onNewPageClicked = (data1,data2) => {
+        this.setState({header:data1});
+        this.setState({display:data2});
+    }
 
     render () {
         return(
-            <div style={{overflow: "hidden"}}> <Topbar />
+            <div style={{overflow: "hidden"}}> <Topbar onLinkClick={this.onLinkClicked} onSizeClick={this.onSizeClicked} onNewPageClick ={this.onNewPageClicked} />
             <div style={{marginTop: "100px"}}>
                 <header>
 	                <nav id="topbar">
 	    	            <div>
 			                <i id="hamburger-menu" class="fas fa-bars"></i>
-			                <img id="logo" src="https://mobirise.com/extensions/organicamp/assets/images/logo1.jpg" alt="Vegan Store Logo" />
+			                <img style={{width:this.state.size}} id="logo" src={this.state.logo} alt="Vegan Store Logo" />
 		                </div>
 		                <div>
 			                <a class="menu-item">Demo Pages<i class="fas fa-caret-down"></i></a>
@@ -34,7 +68,11 @@ class Template3 extends React.Component {
 		                </div>
 	                </nav>
 	                <section id="landing-section">
-		                <h1>Vegan Store Simple Template</h1>
+                        <h1 onClick={this.onHeaderClicked}>{this.state.header}</h1>
+                        <form onSubmit={this.onSubmitted} style={{display: this.state.display}} >
+                            <input onChange={this.onChanged} class="inputField" type="text" placeholder="Type your tag" />
+                            <button class="saveButton" onClick={this.onButtonClicked}>Save</button>
+                        </form>
 		                <p>With nutrition, all the vital functions of the body are connected. It is the source of the development of tissues and cells, their constant renewal, the saturation of man with energy.</p>
 	                </section>
                 </header>

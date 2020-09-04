@@ -9,14 +9,18 @@ class Template2 extends React.Component {
         logo: "https://assets.website-files.com/5da84c0b3e5488033ddb69f6/5da86cc13e54881edfdd15d4_logo-white-p-500.png",
         tag:"YOU DREAM. WE CREATE.",
         tag1:"",
-        display: "none"
+        display: "none",
+        size:"90px"
     }
 
     onHeaderClicked = () => {
         this.setState({display:"block"});
     }
 
-    onButtonClicked = () => {
+    onSubmit =(e)=> {
+        e.preventDefault();
+        console.log(e.target.value);
+        this.setState({tag: "asdasd"});
         this.setState({display:"none"});
     }
 
@@ -24,15 +28,31 @@ class Template2 extends React.Component {
         if(e.target.value !== "")
         this.setState({tag: e.target.value});
         else
-        this.setState({tag: this.state.tag});
+        this.setState({tag: this.state.tag})
+    }
+
+    onButtonClicked = (e) => {
+        e.preventDefault();
+        this.setState({display:"none"});
+    }
+
+    onLinkClicked = (data) => {
+        this.setState({logo:data});
+    }
+    onSizeClicked = (data) => {
+        this.setState({size:data});
+    }
+    onNewPageClicked = (data1,data2) => {
+        this.setState({tag:data1});
+        this.setState({display:data2});
     }
 
         render() {
             return(
-                <div><Topbar />
+                <div><Topbar onLinkClick={this.onLinkClicked} onSizeClick={this.onSizeClicked} onNewPageClick ={this.onNewPageClicked} />
                 <section id="bcg">
                     <div id="top-bar">
-                        <img class="NUUK-image" src={this.state.logo} alt="NUUK"/>
+                        <img style={{width:this.state.size}} class="NUUK-image" src={this.state.logo} alt="NUUK"/>
                         <a class="menu-items">HOME</a>
                         <a class="menu-items">PROJECTS</a>
                         <a class="menu-items">ABOUT</a>
@@ -43,10 +63,10 @@ class Template2 extends React.Component {
                     </div>
                     <div id="container">
                         <h1 onClick={this.onHeaderClicked} class="header">{this.state.tag}</h1>
-                        <label onSubmit={this.onSubmitted} style={{display: this.state.display}} >
+                        <form onSubmit={this.onSubmitted} style={{display: this.state.display}} >
                             <input onChange={this.onChanged} class="inputField" type="text" placeholder="Type your tag" />
                             <button class="saveButton" onClick={this.onButtonClicked}>Save</button>
-                        </label>
+                        </form>
                         <p class="header-para">We turn your ideas to reality, we don't stop until you're satisfied.</p>
                         <button class="header-button">GET FREE QUOTE</button>
                     </div>

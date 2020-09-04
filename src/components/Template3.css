@@ -87,6 +87,17 @@
 	padding-top: 32px;
 }
 
+.inputField {
+  position: absolute;
+  top: 220px;
+  left: 550px;
+}
+.saveButton {
+position: absolute;
+top: 205px;
+left: 860px;
+}
+
 /* STYLED FOR LANDING SECTION END */
 
 
